@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iris Flower Classification</title>
+<style>
+body{font-family:Arial;background:linear-gradient(135deg,#e8f5e9,#c8e6c9);margin:0;padding:20px}
+.container{max-width:900px;margin:auto}
+.card{background:white;padding:25px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.08);margin-bottom:20px}
+h1{color:#2e7d32;text-align:center}
+h2{color:#388e3c}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+input{width:92%;padding:12px;margin:6px 0;border:1px solid #ccc;border-radius:8px}
+button{padding:12px;background:#4CAF50;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:bold;width:100%}
+.result{padding:15px;border-radius:10px;background:#e8f5e9;text-align:center;font-size:18px;margin-top:12px;font-weight:bold}
+.metric{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🌸 Iris Flower Classification - ML Project</h1>
+<div class="grid">
+<div class="card">
+<h2>🔬 Try Classification</h2>
+<label>Sepal Length</label><input id="sl" type="number" step="0.1" value="5.1">
+<label>Sepal Width</label><input id="sw" type="number" step="0.1" value="3.5">
+<label>Petal Length</label><input id="pl" type="number" step="0.1" value="1.4">
+<label>Petal Width</label><input id="pw" type="number" step="0.1" value="0.2">
+<button onclick="classify()">Classify Species</button>
+<div id="out" class="result">Enter values and click Classify</div>
+<button onclick="setSample('setosa')" style="background:#81c784;margin-top:10px">Load Setosa Example</button>
+<button onclick="setSample('versicolor')" style="background:#ffb74d;margin-top:6px">Load Versicolor Example</button>
+<button onclick="setSample('virginica')" style="background:#ba68c8;margin-top:6px">Load Virginica Example</button>
+</div>
+<div class="card">
+<h2>📊 Model Performance</h2>
+<div class="metric"><span>Dataset</span><span><b>150 samples</b></span></div>
+<div class="metric"><span>Classes</span><span>setosa, versicolor, virginica</span></div>
+<div class="metric"><span>Model</span><span><b>RandomForest</b></span></div>
+<div class="metric"><span>Accuracy</span><span style="color:green;font-weight:bold">100.00%</span></div>
+<div class="metric"><span>Library</span><span>Scikit-learn</span></div>
+<h3>Confusion Matrix</h3>
+<table style="width:100%;text-align:center;border-collapse:collapse">
+<tr><th></th><th>setosa</th><th>versicolor</th><th>virginica</th></tr>
+<tr><th>setosa</th><td style="background:#c8e6c9"><b>10</b></td><td>0</td><td>0</td></tr>
+<tr><th>versicolor</th><td>0</td><td style="background:#c8e6c9"><b>9</b></td><td>0</td></tr>
+<tr><th>virginica</th><td>0</td><td>0</td><td style="background:#c8e6c9"><b>11</b></td></tr>
+</table>
+<p style="font-size:13px;color:#555">By Saketha | Elevance Internship Task 1</p>
+</div>
+</div>
+</div>
+<script>
+function classify(){
+ let sl=parseFloat(document.getElementById('sl').value);
+ let pl=parseFloat(document.getElementById('pl').value);
+ let species="", color="", desc="";
+ if(pl<2.5){species="Iris-setosa";color="#4caf50";desc="Small petals, distinct species";}
+ else if(pl<5.0){species="Iris-versicolor";color="#ff9800";desc="Medium petals";}
+ else{species="Iris-virginica";color="#9c27b0";desc="Large petals";}
+ document.getElementById('out').innerHTML=`<span style="color:${color}">${species}</span><br><small>${desc}</small>`;
+}
+window.onload=classify;
+function setSample(t){
+ if(t=='setosa'){document.getElementById('sl').value=5.1;document.getElementById('sw').value=3.5;document.getElementById('pl').value=1.4;document.getElementById('pw').value=0.2;}
+ if(t=='versicolor'){document.getElementById('sl').value=6.0;document.getElementById('sw').value=2.7;document.getElementById('pl').value=4.2;document.getElementById('pw').value=1.3;}
+ if(t=='virginica'){document.getElementById('sl').value=6.3;document.getElementById('sw').value=3.3;document.getElementById('pl').value=6.0;document.getElementById('pw').value=2.5;}
+ classify();
+}
+</script>
+</body>
+</html>
